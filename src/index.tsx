@@ -5,7 +5,7 @@ import {
 } from '@ant-design/cssinjs';
 import * as Antd from 'antd';
 import { renderToString } from 'react-dom/server';
-import { ExtractStyleParams } from './interface';
+import type { ExtractStyleParams } from './interface';
 const blackList: string[] = [
   'ConfigProvider',
   'Drawer',
@@ -17,61 +17,6 @@ const blackList: string[] = [
   'Tour'
 ];
 
-const testComps: string[] = [
-  //   'Button',
-  //   'Space',
-  //   'Card',
-  //   'Layout',
-  //   'Breadcrumb',
-  //   'Anchor',
-  //   'Dropdown',
-  //   'Menu',
-  //   'Pagination',
-  //   'Steps',
-  //   'Checkbox',
-  //   'DatePicker',
-  //   'TimePicker',
-  //   'Form',
-  //   'Input',
-  //   'InputNumber',
-  //   'Mentions',
-  //   'Radio',
-  //   'Rate',
-  //   'Switch',
-  //   'Transfer',
-  //   'Upload',
-  //   'Avatar',
-  //   'Badge',
-  //   'Collapse',
-  //   'Descriptions',
-  //   'Empty',
-  //   'Image',
-  //   'List',
-  //   'QRCode',
-  //   'Segmented',
-  //   'Statistic',
-  //   'Table',
-  //   'Tabs',
-  //   'Tag',
-  //   'Timeline',
-  //   'Tree',
-  //   'Alert',
-  //   'Progress',
-  //   'Result',
-  //   'Skeleton',
-  //   'Spin',
-  //   'Affix',
-  //   'Watermark',
-  //   'Carousel',
-
-  'AutoComplete',
-  'Cascader',
-  'Select',
-  'Slider',
-  'TreeSelect',
-  'Calendar',
-  'FloatButton',
-];
 
 const defaultNode = () => (
   <>
