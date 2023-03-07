@@ -1,6 +1,6 @@
-# rc-trigger
+# Static-Style-Extract
 
-React Trigger Component
+Provide a lib like @ant-design/static-style-extract to support generate static css for SSR usage to generate raw css file for caching.
 
 [![NPM version][npm-image]][npm-url] [![build status][github-actions-image]][github-actions-url] [![Test coverage][coveralls-image]][coveralls-url] [![Dependencies][david-image]][david-url] [![DevDependencies][david-dev-image]][david-dev-url] [![npm download][download-image]][download-url] [![bundle size][bundlephobia-image]][bundlephobia-url] [![dumi][dumi-image]][dumi-url]
 

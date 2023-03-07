@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "name": "rc-trigger",
+  "name": "static-style-extract",
   "builds": [
     {
       "src": "package.json",
       "use": "@now/static-build",
-      "config": { "distDir": ".doc" }
+      "config": { "distDir": "dist" }
     }
   ]
 }
