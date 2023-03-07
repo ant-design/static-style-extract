@@ -58,6 +58,7 @@
     "@ant-design/cssinjs": "^1.6.1",
     "@babel/runtime": "^7.18.3",
     "@rc-component/portal": "^1.1.0",
+    "antd": "^5.3.0",
     "classnames": "^2.3.2",
     "rc-align": "^4.0.0",
     "rc-motion": "^2.0.0",
