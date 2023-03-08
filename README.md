@@ -46,17 +46,10 @@ import extractStyle from `@ant-design/static-style-extract`;
 const cssText = extractStyle(); // :where(.css-bAMboOo).ant-btn ...
 
 const cssText = extractStyle((node) => (
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: testGreenColor,
-          },
-        }}
-      >
-        {node}
-      </ConfigProvider>
-    ));
-
+  <ConfigProvider theme={theme}>
+    {node}
+  </ConfigProvider>
+));
 ```
 
 ## Example
