@@ -3,7 +3,7 @@ import {
   extractStyle as extStyle,
   StyleProvider,
 } from '@ant-design/cssinjs';
-import * as Antd from 'antd';
+import * as antd from 'antd';
 import { renderToString } from 'react-dom/server';
 import type { ExtractStyleParams } from './interface';
 const blackList: string[] = [
@@ -17,22 +17,24 @@ const blackList: string[] = [
   'Tour',
 ];
 
+const styleTagReg = /<style[^>]*>([\s\S]*?)<\/style>/g;
+
 const defaultNode = () => (
   <>
-    {Object.keys(Antd)
+    {Object.keys(antd)
       .filter(
         (name) =>
           !blackList.includes(name) && name[0] === name[0].toUpperCase(),
       )
       .map((compName) => {
-        const Comp = Antd[compName];
+        const Comp = antd[compName];
         if (compName === 'Dropdown') {
           return (
             <Comp
               key={compName}
-              menu={{ items: [{ key: 'test', label: 'test' }] }}
+              menu={{ items: [] }}
             >
-              <div>test</div>
+                <div />
             </Comp>
           );
         }
@@ -51,6 +53,7 @@ export function extractStyle(customTheme?: ExtractStyleParams): string {
 
   // Grab style from cache
   const styleText = extStyle(cache);
+  
 
-  return styleText;
+  return styleText.replace(styleTagReg, '$1');
 }
