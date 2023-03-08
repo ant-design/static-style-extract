@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   createCache,
   extractStyle as extStyle,
