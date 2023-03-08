@@ -1,30 +1,25 @@
 {
-  "name": "@rc-component/trigger",
-  "version": "1.5.0",
-  "description": "base abstract trigger component for react",
+  "name": "@ant-design/static-style-extract",
+  "version": "0.0.1",
+  "description": "support generate static css for SSR usage to generate raw css file for caching.",
   "engines": {
     "node": ">=8.x"
   },
   "keywords": [
-    "react",
-    "react-component",
-    "react-trigger",
-    "trigger"
+    "Static-Style-Extract"
   ],
-  "homepage": "https://github.com/react-component/trigger",
-  "author": "",
+  "homepage": "https://github.com/ant-design/static-style-extract",
+  "author": "kinertang <1127031143@qq.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-component/trigger.git"
+    "url": "https://github.com/ant-design/static-style-extract.git"
   },
   "bugs": {
-    "url": "https://github.com/react-component/trigger/issues"
+    "url": "https://github.com/ant-design/static-style-extract/issues"
   },
   "files": [
     "es",
-    "lib",
-    "assets/**/*.css",
-    "assets/**/*.less"
+    "lib"
   ],
   "license": "MIT",
   "main": "./lib/index",
@@ -32,7 +27,7 @@
   "scripts": {
     "start": "dumi dev",
     "build": "dumi build",
-    "compile": "father build && lessc assets/index.less assets/index.css",
+    "compile": "father build",
     "prepublishOnly": "npm run compile && np --yolo --no-publish",
     "lint": "eslint src/ docs/examples/ --ext .tsx,.ts,.jsx,.js",
     "test": "rc-test",
@@ -60,8 +55,10 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.6.1",
     "@babel/runtime": "^7.18.3",
     "@rc-component/portal": "^1.1.0",
+    "antd": "^5.3.0",
     "classnames": "^2.3.2",
     "rc-align": "^4.0.0",
     "rc-motion": "^2.0.0",
