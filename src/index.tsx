@@ -63,7 +63,7 @@ const defaultNode = (isCollect = false, exclude: string[] = []) => (
 
 export function getExcludeComponents(html: string) {
   // 1. collect all components className
-  renderToString(defaultNode(true));
+  defaultNode(true);
 
   const exclude = collectAntdComponentsInFirstScreen(html, withSpecialClassName(classNameMap));
   return exclude;
