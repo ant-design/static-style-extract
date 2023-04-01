@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   createCache,
   extractStyle as extStyle,
@@ -7,6 +6,7 @@ import {
 import * as antd from 'antd';
 import { renderToString } from 'react-dom/server';
 import type { ExtractStyleParams } from './interface';
+import { collectAntdComponentsInFirstScreen, withSpecialClassName } from './utils';
 const blackList: string[] = [
   'ConfigProvider',
   'Drawer',
@@ -19,42 +19,92 @@ const blackList: string[] = [
 ];
 
 const styleTagReg = /<style[^>]*>([\s\S]*?)<\/style>/g;
+const classReg = /class="[^\s]*(ant-[^\s"]*).*"/;
 
-const defaultNode = () => (
+const classNameMap: Record<string, string> = {};
+
+const defaultNode = (isCollect = false, exclude: string[] = []) => (
   <>
     {Object.keys(antd)
       .filter(
         (name) =>
-          !blackList.includes(name) && name[0] === name[0].toUpperCase(),
+          !blackList.includes(name) &&
+          name[0] === name[0].toUpperCase() &&
+          !exclude.includes(name),
       )
       .map((compName) => {
         const Comp = antd[compName];
+
         if (compName === 'Dropdown') {
-          return (
-            <Comp
-              key={compName}
-              menu={{ items: [] }}
-            >
+          if (isCollect) {
+            const h = renderToString(
+              <Comp key={compName} menu={{ items: [] }}>
                 <div />
+              </Comp>,
+            );
+            const className = h.match(classReg)?.[1];
+            classNameMap[compName] = className;
+          }
+          return (
+            <Comp key={compName} menu={{ items: [] }}>
+              <div />
             </Comp>
           );
+        }
+        if (isCollect) {
+          const h = renderToString(<Comp />);
+          const className = h.match(classReg)?.[1];
+          classNameMap[compName] = className;
         }
         return <Comp key={compName} />;
       })}
   </>
 );
 
-export function extractStyle(customTheme?: ExtractStyleParams): string {
+export function getExcludeComponents(html: string) {
+  // 1. collect all components className
+  renderToString(defaultNode(true));
+
+  const exclude = collectAntdComponentsInFirstScreen(html, withSpecialClassName(classNameMap));
+  return exclude;
+}
+
+export function getUsedStyleByHTML(html: string) {
+  const exclude = getExcludeComponents(html);
   const cache = createCache();
   renderToString(
     <StyleProvider cache={cache}>
-      {customTheme ? customTheme(defaultNode()) : defaultNode()}
+      {defaultNode(false, exclude)}
     </StyleProvider>,
   );
 
   // Grab style from cache
   const styleText = extStyle(cache);
-  
+
+  return styleText.replace(styleTagReg, '$1');
+}
+
+export function getUsedStyleByElement(element: React.ReactElement) {
+  const html = renderToString(element);
+  return getUsedStyleByHTML(html);
+}
+
+export function extractStyle(customTheme?: ExtractStyleParams): string {
+  // 2. collect the components which do not displayed in first screen
+  const html = renderToString(
+    customTheme ? customTheme(defaultNode(false)) : defaultNode(),
+  );
+  const exclude = getExcludeComponents(html);
+
+  const cache = createCache();
+  renderToString(
+    <StyleProvider cache={cache}>
+      {customTheme ? customTheme(defaultNode(false, exclude)) : defaultNode(false, exclude)}
+    </StyleProvider>,
+  );
+
+  // Grab style from cache
+  const styleText = extStyle(cache);
 
   return styleText.replace(styleTagReg, '$1');
 }

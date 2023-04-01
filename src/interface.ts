@@ -1,1 +1,1 @@
-export type ExtractStyleParams = (node: JSX.Element) => JSX.Element;
+export type ExtractStyleParams = (node?: JSX.Element) => JSX.Element;
