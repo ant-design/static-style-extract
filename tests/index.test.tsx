@@ -1,3 +1,4 @@
+import { StyleProvider } from '@ant-design/cssinjs';
 import { extractStyle } from '../src/index';
 import { ConfigProvider } from 'antd';
 
@@ -24,21 +25,23 @@ describe('Static-Style-Extract', () => {
     expect(cssText).toMatchSnapshot();
   });
   it('with custom hashPriority', () => {
-    const cssText = extractStyle((node) => (
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: testGreenColor,
-          },
-        }}
-      >
-        {node}
-      </ConfigProvider>
-    ), {
-      hashPriority: "high"
-    });
+    const cssText = extractStyle(
+      (node) => (
+        <StyleProvider hashPriority='high'>
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: testGreenColor,
+              },
+            }}
+          >
+            {node}
+          </ConfigProvider>
+        </StyleProvider>
+      )
+    );
     expect(cssText).toContain(testGreenColor);
-    expect(cssText).not.toContain(":where");
+    expect(cssText).not.toContain(':where');
     expect(cssText).toMatchSnapshot();
 
     const cssText2 = extractStyle((node) => (
@@ -52,6 +55,6 @@ describe('Static-Style-Extract', () => {
         {node}
       </ConfigProvider>
     ));
-    expect(cssText2).toContain(":where");
+    expect(cssText2).toContain(':where');
   });
 });

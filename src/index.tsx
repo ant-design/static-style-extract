@@ -6,7 +6,7 @@ import {
 } from '@ant-design/cssinjs';
 import * as antd from 'antd';
 import { renderToString } from 'react-dom/server';
-import type { CustomRender, ExtractStyleOptions } from './interface';
+import type { CustomRender } from './interface';
 const blackList: string[] = [
   'ConfigProvider',
   'Drawer',
@@ -42,10 +42,10 @@ const defaultNode = () => (
   </>
 );
 
-export function extractStyle(customTheme?: CustomRender, { hashPriority }: ExtractStyleOptions = {}): string {
+export function extractStyle(customTheme?: CustomRender): string {
   const cache = createCache();
   renderToString(
-    <StyleProvider cache={cache} hashPriority={hashPriority}>
+    <StyleProvider cache={cache}>
       {customTheme ? customTheme(defaultNode()) : defaultNode()}
     </StyleProvider>,
   );
