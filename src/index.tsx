@@ -6,7 +6,7 @@ import {
 } from '@ant-design/cssinjs';
 import * as antd from 'antd';
 import { renderToString } from 'react-dom/server';
-import type { ExtractStyleParams } from './interface';
+import type { CustomRender } from './interface';
 const blackList: string[] = [
   'ConfigProvider',
   'Drawer',
@@ -17,8 +17,6 @@ const blackList: string[] = [
   'Tooltip',
   'Tour',
 ];
-
-const styleTagReg = /<style[^>]*>([\s\S]*?)<\/style>/g;
 
 const defaultNode = () => (
   <>
@@ -44,7 +42,7 @@ const defaultNode = () => (
   </>
 );
 
-export function extractStyle(customTheme?: ExtractStyleParams): string {
+export function extractStyle(customTheme?: CustomRender): string {
   const cache = createCache();
   renderToString(
     <StyleProvider cache={cache}>
@@ -53,8 +51,7 @@ export function extractStyle(customTheme?: ExtractStyleParams): string {
   );
 
   // Grab style from cache
-  const styleText = extStyle(cache);
-  
+  const styleText = extStyle(cache, true);
 
-  return styleText.replace(styleTagReg, '$1');
+  return styleText;
 }
