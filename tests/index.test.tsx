@@ -23,4 +23,35 @@ describe('Static-Style-Extract', () => {
     expect(cssText).toContain(testGreenColor);
     expect(cssText).toMatchSnapshot();
   });
+  it('with custom hashPriority', () => {
+    const cssText = extractStyle((node) => (
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: testGreenColor,
+          },
+        }}
+      >
+        {node}
+      </ConfigProvider>
+    ), {
+      hashPriority: "high"
+    });
+    expect(cssText).toContain(testGreenColor);
+    expect(cssText).not.toContain(":where");
+    expect(cssText).toMatchSnapshot();
+
+    const cssText2 = extractStyle((node) => (
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: testGreenColor,
+          },
+        }}
+      >
+        {node}
+      </ConfigProvider>
+    ));
+    expect(cssText2).toContain(":where");
+  });
 });
