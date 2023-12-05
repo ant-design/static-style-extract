@@ -1,8 +1,12 @@
 import { StyleProvider } from '@ant-design/cssinjs';
 import { extractStyle } from '../src/index';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'use-testing-antd';
 
 const testGreenColor = '#008000';
+
+jest.mock('antd', () => jest.requireActual('use-testing-antd'));
+beforeEach(() => jest.clearAllMocks());
+
 describe('Static-Style-Extract', () => {
   it('should extract static styles', () => {
     const cssText = extractStyle();
