@@ -18,12 +18,14 @@
     "url": "https://github.com/ant-design/static-style-extract/issues"
   },
   "files": [
+    "bin",
     "es",
     "lib"
   ],
   "license": "MIT",
   "main": "./lib/index",
   "module": "./es/index",
+  "bin": "./bin/index.js",
   "scripts": {
     "start": "dumi dev",
     "build": "dumi build",
