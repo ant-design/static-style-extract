@@ -32,7 +32,7 @@ npm install @ant-design/static-style-extract
 ## Usage
 
 ```tsx | pure
-import extractStyle from `@ant-design/static-style-extract`;
+import { extractStyle } from `@ant-design/static-style-extract`;
 
 const cssText = extractStyle(); // :where(.css-bAMboOo).ant-btn ...
 
@@ -41,7 +41,7 @@ const cssText = extractStyle(); // :where(.css-bAMboOo).ant-btn ...
 use with custom theme
 
 ```tsx | pure
-import extractStyle from `@ant-design/static-style-extract`;
+import { extractStyle } from `@ant-design/static-style-extract`;
 
 const cssText = extractStyle(); // :where(.css-bAMboOo).ant-btn ...
 
@@ -51,6 +51,57 @@ const cssText = extractStyle((node) => (
   </ConfigProvider>
 ));
 ```
+
+use command line
+
+```bash
+npx @ant-design/static-style-extract@latest -i your-theme.tsx
+```
+
+<details>
+  <summary><code>your-theme.tsx</code> example</summary>
+
+```tsx | pure
+import * as React from 'react';
+import { ConfigProvider } from 'antd';
+
+const testGreenColor = '#008000';
+const testRedColor = '#ff0000';
+
+// Not a React component (Pure function)
+export default (node) => (
+  <>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorBgBase: testGreenColor,
+        },
+      }}
+    >
+      {node}
+    </ConfigProvider>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: testGreenColor,
+        },
+      }}
+    >
+      <ConfigProvider
+        theme={{
+          token: {
+            colorBgBase: testRedColor,
+          },
+        }}
+      >
+        {node}
+      </ConfigProvider>
+    </ConfigProvider>
+  </>
+)
+```
+
+</details>
 
 ## Example
 
