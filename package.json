@@ -1,6 +1,6 @@
 {
   "name": "@ant-design/static-style-extract",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "support generate static css for SSR usage to generate raw css file for caching.",
   "engines": {
     "node": ">=8.x"
