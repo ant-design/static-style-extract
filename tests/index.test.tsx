@@ -55,4 +55,20 @@ describe('Static-Style-Extract', () => {
     ));
     expect(cssText2).toContain(':where');
   });
+
+  it('whitelist should work', () => {
+    const cssText = extractStyle({
+      includes: ['Button']
+    });
+    expect(cssText).toContain('.ant-btn');
+    expect(cssText).not.toContain('.ant-select');
+  });
+
+  it('blacklist should work', () => {
+    const cssText = extractStyle({
+      excludes: ['Card']
+    });
+    expect(cssText).toContain('.ant-btn');
+    expect(cssText).not.toContain('.ant-card');
+  })
 });
