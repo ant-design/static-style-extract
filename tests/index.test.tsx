@@ -69,6 +69,8 @@ describe('Static-Style-Extract', () => {
       excludes: ['Card']
     });
     expect(cssText).toContain('.ant-btn');
+    expect(cssText).toContain('.ant-notification');
+    expect(cssText).toContain('.ant-message');
     expect(cssText).not.toContain('.ant-card');
   })
 });
