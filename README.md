@@ -52,6 +52,18 @@ const cssText = extractStyle((node) => (
 ));
 ```
 
+use with blacklist or whitelist
+
+```tsx | pure
+import extractStyle from `@ant-design/static-style-extract`;
+
+const cssText = extractStyle(); // :where(.css-bAMboOo).ant-btn ...
+
+const cssText = extractStyle({
+  includes: ['Button']
+});
+```
+
 ## Example
 
 http://localhost:8000
