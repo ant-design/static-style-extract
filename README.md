@@ -57,10 +57,8 @@ use with blacklist or whitelist
 ```tsx | pure
 import extractStyle from `@ant-design/static-style-extract`;
 
-const cssText = extractStyle(); // :where(.css-bAMboOo).ant-btn ...
-
 const cssText = extractStyle({
-  includes: ['Button']
+  includes: ['Button'] // Only Button style will be extracted
 });
 ```
 
