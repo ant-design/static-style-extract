@@ -48,6 +48,7 @@ describe('Static-Style-Extract', () => {
           token: {
             colorPrimary: testGreenColor,
           },
+          hashed: true
         }}
       >
         {node}
