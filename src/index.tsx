@@ -6,13 +6,7 @@ import type { CustomRender } from './interface';
 
 const defaultBlackList: string[] = [
   'ConfigProvider',
-  'Drawer',
   'Grid',
-  'Modal',
-  'Popconfirm',
-  'Popover',
-  'Tooltip',
-  'Tour',
 ];
 
 const ComponentCustomizeRender: Record<
@@ -25,6 +19,12 @@ const ComponentCustomizeRender: Record<
     </Affix>
   ),
   BackTop: () => <antd.FloatButton.BackTop />,
+  Cascader: () => (
+    <>
+      <antd.Cascader />
+      <antd.Cascader.Panel />
+    </>
+  ),
   Dropdown: (Dropdown) => (
     <Dropdown menu={{ items: [] }}>
       <div />
@@ -33,6 +33,54 @@ const ComponentCustomizeRender: Record<
   Menu: (Menu) => <Menu items={[]} />,
   QRCode: (QRCode) => <QRCode value="https://ant.design" />,
   Tree: (Tree) => <Tree treeData={[]} />,
+  Tag: (Tag) => (
+    <>
+      <Tag color="blue">Tag</Tag>
+      <Tag color="success">Tag</Tag>
+    </>
+  ),
+  Badge: (Badge: any) => (
+    <>
+      <Badge />
+      <Badge.Ribbon />
+    </>
+  ),
+  Space: (Space: any) => (
+    <>
+      <Space />
+      <Space.Compact>
+        <antd.Button />
+      </Space.Compact>
+    </>
+  ),
+  Input: (Input: any) => (
+    <>
+      <Input />
+      <Input.Group>
+        <Input />
+        <Input />
+      </Input.Group>
+      <Input.Search />
+      <Input.TextArea />
+      <Input.Password />
+      <Input.OTP />
+    </>
+  ),
+  Modal: (Modal: any) => (
+    <>
+      <Modal />
+      <Modal._InternalPanelDoNotUseOrYouWillBeFired />
+      <Modal._InternalPanelDoNotUseOrYouWillBeFired type="confirm" />
+    </>
+  ),
+  message: (message: any) => {
+    const { _InternalPanelDoNotUseOrYouWillBeFired: PurePanel } = message;
+    return <PurePanel />;
+  },
+  notification: (notification: any) => {
+    const { _InternalPanelDoNotUseOrYouWillBeFired: PurePanel } = notification;
+    return <PurePanel />;
+  },
 };
 
 interface NodeProps {
@@ -48,7 +96,8 @@ const defaultNode = ({ excludes = [], includes }: NodeProps) => {
       {components
         .filter(
           (name) =>
-            ![...defaultBlackList, ...excludes].includes(name) && name[0] === name[0].toUpperCase(),
+            ![...defaultBlackList, ...excludes].includes(name)
+            && (name[0] === name[0].toUpperCase() || ['message', 'notification'].includes(name)),
         )
         .map((compName) => {
           const Comp = antd[compName];
