@@ -60,12 +60,12 @@
     "@babel/runtime": "^7.18.3"
   },
   "peerDependencies": {
-    "antd": "^5.3.0",
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "antd": ">=6.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "resolutions": {
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0"
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
   }
 }
