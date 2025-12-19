@@ -61,7 +61,7 @@ const ComponentCustomizeRender: Record<
     const { _InternalPanelDoNotUseOrYouWillBeFired: PurePanel } = notification;
     return <PurePanel />;
   },
-  Layout: (Layout: any) => (
+  Layout: (Layout: typeof antd.Layout) => (
     <>
       <Layout />
       <Layout.Sider />

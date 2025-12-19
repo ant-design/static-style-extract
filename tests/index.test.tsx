@@ -75,7 +75,7 @@ describe('Static-Style-Extract', () => {
     expect(cssText).not.toContain('.ant-card');
   })
 
-    it('should extract Layout.Sider', () => {
+  it('should extract Layout.Sider', () => {
     const cssText = extractStyle();
     expect(cssText).toContain('.ant-layout-sider');
   });
