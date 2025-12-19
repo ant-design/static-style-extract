@@ -61,6 +61,12 @@ const ComponentCustomizeRender: Record<
     const { _InternalPanelDoNotUseOrYouWillBeFired: PurePanel } = notification;
     return <PurePanel />;
   },
+  Layout: (Layout: any) => (
+    <>
+      <Layout />
+      <Layout.Sider />
+    </>
+  ),
 };
 
 interface NodeProps {
