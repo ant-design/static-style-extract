@@ -20,7 +20,7 @@ describe('Static-Style-Extract.SSR', () => {
     extractStyle();
 
     const filteredCalls = errSpy.mock.calls.filter(([msg]) => {
-      return !allowedWarnings.some((allowed) => msg.includes(allowed));
+      return !allowedWarnings.some((allowed) => msg === allowed);
     })
     
     expect(filteredCalls).toHaveLength(0);
