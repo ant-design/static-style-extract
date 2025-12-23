@@ -10,7 +10,7 @@ jest.mock('react', () => {
 });
 
 describe('Static-Style-Extract.SSR', () => {
-  it('not warning', () => {
+  it('should not produce unexpected warnings', () => {
     const allowedWarnings = [
       'Warning: [antd: List] The `List` component is deprecated. And will be removed in next major version.'
     ]
