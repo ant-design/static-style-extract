@@ -10,11 +10,19 @@ jest.mock('react', () => {
 });
 
 describe('Static-Style-Extract.SSR', () => {
-  it('not warning', () => {
+  it('should not produce unexpected warnings', () => {
+    const allowedWarnings = [
+      'Warning: [antd: List] The `List` component is deprecated. And will be removed in next major version.'
+    ]
+
     const errSpy = jest.spyOn(console, 'error');
 
     extractStyle();
 
-    expect(errSpy).not.toHaveBeenCalled();
+    const filteredCalls = errSpy.mock.calls.filter(([msg]) => {
+      return !allowedWarnings.some((allowed) => msg === allowed);
+    })
+    
+    expect(filteredCalls).toHaveLength(0);
   });
 });
