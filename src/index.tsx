@@ -42,6 +42,7 @@ const ComponentCustomizeRender: Record<
   Space: (Space: any) => (
     <>
       <Space />
+      <Space.Addon />
       <Space.Compact>
         <antd.Button />
       </Space.Compact>
@@ -51,6 +52,7 @@ const ComponentCustomizeRender: Record<
     <>
       <Modal />
       <Modal._InternalPanelDoNotUseOrYouWillBeFired />
+      <Modal._InternalPanelDoNotUseOrYouWillBeFired type="confirm" />
     </>
   ),
   message: (message: any) => {
@@ -65,6 +67,20 @@ const ComponentCustomizeRender: Record<
     <>
       <Layout />
       <Layout.Sider />
+    </>
+  ),
+  Cascader: (Cascader: typeof antd.Cascader) => (
+    <>
+      <Cascader options={[]} />
+      <Cascader.Panel options={[]} />
+    </>
+  ),
+  Input: (Input: typeof antd.Input) => (
+    <>
+      <Input />
+      <Input.OTP />
+      <Input.Search />
+      <Input.TextArea />
     </>
   ),
 };
