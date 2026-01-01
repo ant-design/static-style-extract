@@ -4,24 +4,24 @@ import type { CssStylesheetAST, CssAtRuleAST } from '@adobe/css-tools';
 import { parse, CssTypes } from '@adobe/css-tools';
 import { extractStyle } from '../src';
 import fs from 'fs';
-import path from 'path';
 
 function extractSelectors(ast: CssStylesheetAST): Set<string> {
   const selectors = new Set<string>();
 
   function walk(rules: CssAtRuleAST[]) {
     for (const rule of rules) {
-      if (rule.type === CssTypes.rule && rule.selectors) {
-        rule.selectors.forEach(sel => selectors.add(sel));
-      }
-      if (rule.type === CssTypes.media && rule.rules) {
-        walk(rule.rules);
-      }
-      if (rule.type === CssTypes.supports && rule.rules) {
-        walk(rule.rules);
-      }
-      if (rule.type === CssTypes.layer && rule.rules) {
-        walk(rule.rules);
+      switch (rule.type) {
+        case CssTypes.rule:
+          rule.selectors?.forEach(sel => selectors.add(sel));
+          break;
+        case CssTypes.media:
+        case CssTypes.supports:
+        case CssTypes.layer:
+          if (rule.rules) walk(rule.rules);
+          break;
+        default:
+          // Ignore other rule types (comments, keyframes, font-face, etc.)
+          break;
       }
     }
   }
@@ -45,7 +45,7 @@ describe('CSS Coverage', () => {
       </StyleProvider>
     ));
 
-    const antdCssPath = path.join(__dirname, '../node_modules/antd/dist/antd.css');
+    const antdCssPath = require.resolve('antd/dist/antd.css');
     const antdCss = fs.readFileSync(antdCssPath, 'utf-8');
 
     const antdAst = parse(antdCss);
