@@ -51,7 +51,6 @@ const ComponentCustomizeRender: Record<
   Modal: (Modal: any) => (
     <>
       <Modal />
-      <Modal._InternalPanelDoNotUseOrYouWillBeFired />
       <Modal._InternalPanelDoNotUseOrYouWillBeFired type="confirm" />
     </>
   ),
