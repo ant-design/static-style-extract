@@ -1,13 +1,14 @@
-import { createCache, extractStyle as extStyle, StyleProvider } from '@ant-design/cssinjs';
-import { renderToString } from 'react-dom/server';
+import {
+  createCache,
+  extractStyle as extStyle,
+  StyleProvider,
+} from '@ant-design/cssinjs';
 import * as antd from 'antd';
 import React from 'react';
+import { renderToString } from 'react-dom/server';
 import type { CustomRender } from './interface';
 
-const defaultBlackList: string[] = [
-  'ConfigProvider',
-  'Grid',
-];
+const defaultBlackList: string[] = ['ConfigProvider', 'Grid'];
 
 const ComponentCustomizeRender: Record<
   string,
@@ -19,10 +20,10 @@ const ComponentCustomizeRender: Record<
     </Affix>
   ),
   BackTop: () => <antd.FloatButton.BackTop />,
-  Cascader: () => (
+  Cascader: (Cascader: typeof antd.Cascader) => (
     <>
-      <antd.Cascader />
-      <antd.Cascader.Panel />
+      <Cascader />
+      <Cascader.Panel />
     </>
   ),
   Dropdown: (Dropdown) => (
@@ -45,16 +46,16 @@ const ComponentCustomizeRender: Record<
       <Badge.Ribbon />
     </>
   ),
-  Space: (Space: any) => (
+  Space: (Space: typeof antd.Space) => (
     <>
       <Space />
       <Space.Compact>
         <antd.Button />
-        <antd.Space.Addon>1</antd.Space.Addon>
+        <Space.Addon>1</Space.Addon>
       </Space.Compact>
     </>
   ),
-  Input: (Input: any) => (
+  Input: (Input: typeof antd.Input) => (
     <>
       <Input />
       <Input.Group>
@@ -67,7 +68,7 @@ const ComponentCustomizeRender: Record<
       <Input.OTP />
     </>
   ),
-  Modal: (Modal: any) => (
+  Modal: (Modal: typeof antd.Modal) => (
     <>
       <Modal />
       <Modal._InternalPanelDoNotUseOrYouWillBeFired />
@@ -82,13 +83,13 @@ const ComponentCustomizeRender: Record<
     const { _InternalPanelDoNotUseOrYouWillBeFired: PurePanel } = notification;
     return <PurePanel />;
   },
-  Layout: () => (
-    <antd.Layout>
-      <antd.Layout.Header>Header</antd.Layout.Header>
-      <antd.Layout.Sider>Sider</antd.Layout.Sider>
-      <antd.Layout.Content>Content</antd.Layout.Content>
-      <antd.Layout.Footer>Footer</antd.Layout.Footer>
-    </antd.Layout>
+  Layout: (Layout: typeof antd.Layout) => (
+    <Layout>
+      <Layout.Header>Header</Layout.Header>
+      <Layout.Sider>Sider</Layout.Sider>
+      <Layout.Content>Content</Layout.Content>
+      <Layout.Footer>Footer</Layout.Footer>
+    </Layout>
   ),
 };
 
@@ -105,7 +106,9 @@ const defaultNode = ({ excludes = [], includes }: NodeProps) => {
       {components
         .filter(
           (name) =>
-            ![...defaultBlackList, ...excludes].includes(name) && (name[0] === name[0].toUpperCase() || ['notification', 'message'].includes(name)),
+            ![...defaultBlackList, ...excludes].includes(name) &&
+            (name[0] === name[0].toUpperCase() ||
+              ['notification', 'message'].includes(name)),
         )
         .map((compName) => {
           const Comp = antd[compName];
@@ -122,13 +125,17 @@ const defaultNode = ({ excludes = [], includes }: NodeProps) => {
         })}
     </>
   );
-}
+};
 
-export function extractStyle(arg?: CustomRender | {
-  customTheme?: CustomRender,
-  excludes?: string[],
-  includes?: string[],
-}): string {
+export function extractStyle(
+  arg?:
+    | CustomRender
+    | {
+        customTheme?: CustomRender;
+        excludes?: string[];
+        includes?: string[];
+      },
+): string {
   const cache = createCache();
 
   let customTheme: CustomRender | undefined;
@@ -143,11 +150,13 @@ export function extractStyle(arg?: CustomRender | {
   const nodeProps: NodeProps = {
     includes,
     excludes,
-  }
+  };
 
   renderToString(
     <StyleProvider cache={cache}>
-      {customTheme ? customTheme(defaultNode(nodeProps)) : defaultNode(nodeProps)}
+      {customTheme
+        ? customTheme(defaultNode(nodeProps))
+        : defaultNode(nodeProps)}
     </StyleProvider>,
   );
 
