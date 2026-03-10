@@ -19,6 +19,12 @@ const ComponentCustomizeRender: Record<
     </Affix>
   ),
   BackTop: () => <antd.FloatButton.BackTop />,
+  Cascader: () => (
+    <>
+      <antd.Cascader />
+      <antd.Cascader.Panel />
+    </>
+  ),
   Dropdown: (Dropdown) => (
     <Dropdown menu={{ items: [] }}>
       <div />
@@ -42,15 +48,29 @@ const ComponentCustomizeRender: Record<
   Space: (Space: any) => (
     <>
       <Space />
-      <Space.Addon />
       <Space.Compact>
         <antd.Button />
+        <antd.Space.Addon>1</antd.Space.Addon>
       </Space.Compact>
+    </>
+  ),
+  Input: (Input: any) => (
+    <>
+      <Input />
+      <Input.Group>
+        <Input />
+        <Input />
+      </Input.Group>
+      <Input.Search />
+      <Input.TextArea />
+      <Input.Password />
+      <Input.OTP />
     </>
   ),
   Modal: (Modal: any) => (
     <>
       <Modal />
+      <Modal._InternalPanelDoNotUseOrYouWillBeFired />
       <Modal._InternalPanelDoNotUseOrYouWillBeFired type="confirm" />
     </>
   ),
@@ -62,25 +82,13 @@ const ComponentCustomizeRender: Record<
     const { _InternalPanelDoNotUseOrYouWillBeFired: PurePanel } = notification;
     return <PurePanel />;
   },
-  Layout: (Layout: typeof antd.Layout) => (
-    <>
-      <Layout />
-      <Layout.Sider />
-    </>
-  ),
-  Cascader: (Cascader: typeof antd.Cascader) => (
-    <>
-      <Cascader options={[]} />
-      <Cascader.Panel options={[]} />
-    </>
-  ),
-  Input: (Input: typeof antd.Input) => (
-    <>
-      <Input />
-      <Input.OTP />
-      <Input.Search />
-      <Input.TextArea />
-    </>
+  Layout: () => (
+    <antd.Layout>
+      <antd.Layout.Header>Header</antd.Layout.Header>
+      <antd.Layout.Sider>Sider</antd.Layout.Sider>
+      <antd.Layout.Content>Content</antd.Layout.Content>
+      <antd.Layout.Footer>Footer</antd.Layout.Footer>
+    </antd.Layout>
   ),
 };
 
