@@ -12,8 +12,9 @@ jest.mock('react', () => {
 describe('Static-Style-Extract.SSR', () => {
   it('should not produce unexpected warnings', () => {
     const allowedWarnings = [
-      'Warning: [antd: List] The `List` component is deprecated. And will be removed in next major version.'
-    ]
+      'Warning: [antd: List] The `List` component is deprecated. And will be removed in next major version.',
+      'Warning: [antd: Input.Group] `Input.Group` is deprecated. Please use `Space.Compact` instead.',
+    ];
 
     const errSpy = jest.spyOn(console, 'error');
 
@@ -21,8 +22,8 @@ describe('Static-Style-Extract.SSR', () => {
 
     const filteredCalls = errSpy.mock.calls.filter(([msg]) => {
       return !allowedWarnings.some((allowed) => msg === allowed);
-    })
-    
+    });
+
     expect(filteredCalls).toHaveLength(0);
   });
 });
