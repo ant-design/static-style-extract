@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "types": ["jest", "node"],
     "moduleResolution": "node",
     "baseUrl": "./",
     "jsx": "preserve",
