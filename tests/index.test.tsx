@@ -48,7 +48,7 @@ describe('Static-Style-Extract', () => {
           token: {
             colorPrimary: testGreenColor,
           },
-          hashed: true
+          hashed: true,
         }}
       >
         {node}
@@ -59,7 +59,7 @@ describe('Static-Style-Extract', () => {
 
   it('whitelist should work', () => {
     const cssText = extractStyle({
-      includes: ['Button']
+      includes: ['Button'],
     });
     expect(cssText).toContain('.ant-btn');
     expect(cssText).not.toContain('.ant-select');
@@ -67,16 +67,21 @@ describe('Static-Style-Extract', () => {
 
   it('blacklist should work', () => {
     const cssText = extractStyle({
-      excludes: ['Card']
+      excludes: ['Card'],
     });
     expect(cssText).toContain('.ant-btn');
     expect(cssText).toContain('.ant-notification');
     expect(cssText).toContain('.ant-message');
     expect(cssText).not.toContain('.ant-card');
-  })
+  });
 
   it('should extract Layout.Sider', () => {
     const cssText = extractStyle();
     expect(cssText).toContain('.ant-layout-sider');
+  });
+
+  it('should extract Modal.confirm', () => {
+    const cssText = extractStyle();
+    expect(cssText).toContain('.ant-modal-confirm-title');
   });
 });
