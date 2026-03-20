@@ -84,4 +84,13 @@ describe('Static-Style-Extract', () => {
     const cssText = extractStyle();
     expect(cssText).toContain('.ant-modal-confirm-title');
   });
+
+  it('should not contain media queries with CSS var in min-width or max-width', () => {
+    const cssText = extractStyle();
+    // Check for media queries using CSS var like: @media (min-width: var(--xxx))
+    const cssVarMediaRegex =
+      /@media\s*\([^)]*(?:min-width|max-width)\s*:\s*var\(/;
+    const match = cssVarMediaRegex.test(cssText);
+    expect(match).toBe(false);
+  });
 });
